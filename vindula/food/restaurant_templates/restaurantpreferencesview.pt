@@ -1,0 +1,93 @@
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xml:lang="en" 
+	  xmlns:tal="http://xml.zope.org/namespaces/tal" 
+	  xmlns:metal="http://xml.zope.org/namespaces/metal" 
+	  xmlns:i18n="http://xml.zope.org/namespaces/i18n" 
+	  lang="en" 
+	  metal:use-macro="here/main_template/macros/master" 
+	  i18n:domain="vindula.food">
+	  	
+    <body>
+        <metal:main fill-slot="content-core">
+            <metal:content-core define-macro="content-core">
+            	<div id="content" tal:define="form_data view/load_form | python:{};
+                                              errors form_data/errors | python:{};
+                                              form_values form_data/data | python:{};">
+					<form method="post" action="restaurantpreferences">
+						
+                        <input tal:condition="request/id | nothing" id="id" type="hidden" value="" name="id" tal:attributes="value request/id | nothing">
+						
+						<div class="field" tal:attributes="class python: view.field_class(errors, 'name')">
+		                    <label for="name">Nome</label>
+		                    <span class="fieldRequired" title="Obrigatório">(Obrigatório)</span>
+		                    <div class="formHelp">Insira o nome do restaurante.</div>
+		                    <div tal:content="errors/name|nothing"></div> 
+		                    <input id="name" type="text" value="" 
+		                    name="name" size="25" tal:attributes="value request/name | form_values/name | nothing">
+		                </div>
+						
+						<div class="field" tal:define="specialties view/get_specialties" tal:attributes="class python: view.field_class(errors, 'vin_food_specialty_id')">
+		                    <label for="vin_food_specialty_id">Especialidade</label>
+		                    <span class="fieldRequired" title="Obrigatório">(Obrigatório)</span>
+		                    <div class="formHelp">Selecione o tipo/especialidade do restaurante. Cadastre uma <a tal:attributes="href string: ${here/absolute_url}/specialty?rest_id=${request/id|nothing}">nova especialidade.</a></div>
+		                    <div tal:content="errors/specialty|nothing"></div> 
+		                    <select name="vin_food_specialty_id" tal:define="id_request request/vin_food_specialty_id | form_values/vin_food_specialty_id | python:''">
+		                        <option value="">-- Selecione --</option>
+		                        <tal:repeat repeat="specialty specialties">
+		                            <option value=""
+		                                    tal:content="specialty/name" 
+		                                    tal:attributes="value specialty/id | nothing;
+		                                                    selected python: str(id_request)==str(specialty.id) or default"></option>
+		                        </tal:repeat>
+		                    </select>
+		                </div>
+						
+						<div class="field" tal:attributes="class python: view.field_class(errors, 'address')">
+		                    <label for="address">Endereço</label>
+		                    <span class="fieldRequired" title="Obrigatório">(Obrigatório)</span>
+		                    <div class="formHelp">Insira o endereço completo do restaurante.</div>
+		                    <div tal:content="errors/address|nothing"></div> 
+		                    <input id="address" type="text" value="" 
+		                    name="address" size="45" tal:attributes="value request/address | form_values/address | nothing">
+		                </div>
+						
+						<div class="field" tal:attributes="class python: view.field_class(errors, 'phone_number')">
+		                    <label for="phone_number">Telefone Comercial</label>
+		                    <div class="formHelp">Insira o número do telefone do restaurante.</div>
+		                    <div tal:content="errors/phone_number|nothing"></div> 
+		                    <input id="phone_number" type="text" value="" 
+		                    name="phone_number" size="25" tal:attributes="value request/phone_number | form_values/phone_number | nothing">
+		                </div>
+						
+						<div class="field" tal:attributes="class python: view.field_class(errors, 'delivery')">
+		                    <label for="delivery">Delivery</label>
+		                    <div class="formHelp">Marque esta opção se o restante tiver serviço de delivery.</div>
+		                    <div tal:content="errors/delivery|nothing"></div> 
+		                    <input id="delivery" type="checkbox" value="" checked="" name="delivery" 
+							       tal:attributes="value request/delivery | form_values/delivery | nothing;
+								                   checked request/delivery | form_values/delivery | nothing">
+		                </div>
+						
+						<div class="field" tal:attributes="class python: view.field_class(errors, 'opening_hours')">
+		                    <label for="opening_hours">Horário de funcionamento</label>
+		                    <div class="formHelp">Insira o horário de funcionamento do restaurante.</div>
+		                    <div tal:content="errors/opening_hours|nothing"></div> 
+		                    <input id="opening_hours" type="text" value="" 
+		                    name="opening_hours" size="25" tal:attributes="value request/opening_hours | form_values/opening_hours | nothing">
+		                </div>
+						
+						<!-- Botões de ação --> 
+                        <fieldset>
+                            <br/>
+                            <div style="float:left; width:100%">
+                                <input style="width:100px" class="button-erp" type="submit" value="Voltar" name="form.voltar">
+                                <input style="width:100px;" class="button-erp" type="submit" value="Salvar" name="form.submited">
+                            </div>
+                        </fieldset>
+						
+					</form>
+				</div>
+            </metal:content-core>
+        </metal:main>
+    </body>
+</html>

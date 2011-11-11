@@ -1,0 +1,46 @@
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xml:lang="en" 
+	  xmlns:tal="http://xml.zope.org/namespaces/tal" 
+	  xmlns:metal="http://xml.zope.org/namespaces/metal" 
+	  xmlns:i18n="http://xml.zope.org/namespaces/i18n" 
+	  lang="en" 
+	  metal:use-macro="here/main_template/macros/master" 
+	  i18n:domain="vindula.food">
+	  	
+    <body>
+        <metal:main fill-slot="content-core">
+            <metal:content-core define-macro="content-core">
+            	<div id="content" tal:define="form_data view/load_form | python:{};
+                                              errors form_data/errors | python:{};
+                                              form_values form_data/data | python:{};">
+
+                    <form method="post" action="specialty">
+                    	
+						<input tal:condition="request/id | nothing" id="id" type="hidden" value="" name="id" tal:attributes="value request/id | nothing">
+						<input tal:condition="request/rest_id | nothing" id="rest_id" type="hidden" value="" name="rest_id" tal:attributes="value request/rest_id">
+				
+						<div class="field">
+		                    <label for="name">Nome</label>
+		                    <span class="fieldRequired" title="Obrigatório">(Obrigatório)</span>
+		                    <div class="formHelp">Insira o nome da especialidade/tipo.</div>
+		                    <div tal:content="errors/name|nothing"></div> 
+		                    <input id="name" type="text" value="" name="name" size="25" tal:attributes="value request/name | form_values/name | nothing">
+		                </div>
+						
+						
+						<!-- Botões de ação --> 
+		                <fieldset>
+		                    <br/>
+		                    <div style="float:left; width:100%">
+		                        <input style="width:100px" class="button-erp" type="submit" value="Voltar" name="form.voltar">
+		                        <input style="width:100px;" class="button-erp" type="submit" value="Salvar" name="form.submited">
+		                    </div>
+		                </fieldset>
+					</form>
+				
+				</div>
+				
+            </metal:content-core>
+        </metal:main>
+    </body>
+</html>

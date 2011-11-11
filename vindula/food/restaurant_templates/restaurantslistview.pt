@@ -1,0 +1,93 @@
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xml:lang="en" 
+	  xmlns:tal="http://xml.zope.org/namespaces/tal" 
+	  xmlns:metal="http://xml.zope.org/namespaces/metal" 
+	  xmlns:i18n="http://xml.zope.org/namespaces/i18n" 
+	  lang="en" 
+	  metal:use-macro="here/main_template/macros/master" 
+	  i18n:domain="vindula.food">
+	  	
+    <body>
+    	
+		<metal:js fill-slot="javascript_head_slot">
+            <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=true"></script>
+            <script type="text/javascript" src="http://code.google.com/apis/gears/gears_init.js"></script>
+			<script type="text/javascript" tal:attributes="src string:${view/static}/restaurants.js" src=""></script>
+			<script type="text/javascript" tal:attributes="src string:${view/static}/maps.js" src=""></script>
+        </metal:js>
+		
+		<metal:block fill-slot="top_slot">
+		</metal:block>
+		
+        <metal:main fill-slot="content-core">
+            <metal:content-core define-macro="content-core">
+				
+				<div id="content" tal:define="url batch_base_url | string:${here/absolute_url}/restaurantslist;
+					                          order request/order | python: 'id';
+											  size request/size | python: '5'">
+											  
+					<span>Ordenação: </span>
+					<select id="order">
+						<option tal:attributes="value string:?order=id&size=${size}; selected python: str(order) == 'id'" value="">Novidades</option>
+						<option tal:attributes="value string:?order=name&size=${size}; selected python: str(order) == 'name'" value="">Nome do restaurante(A - Z)</option>
+					</select>
+					
+					<span>Itens por página: </span>
+                    <select id="items_page">
+                    	<option tal:attributes="value string:?order=${order}&size=2; selected python: str(size) == '2' or ''" value="">2</option>
+                        <option tal:attributes="value string:?order=${order}&size=5; selected python: str(size) == '5' or ''" value="">5</option>
+                        <option tal:attributes="value string:?order=${order}&size=10; selected python: str(size) == '10' or ''" value="">10</option>
+                        <option tal:attributes="value string:?order=${order}&size=20; selected python: str(size) == '20' or ''" value="">20</option>
+                    </select>
+					
+					<input name="here_url" type="hidden" tal:attributes="value here/portal_url" />
+					
+					<div id="list" tal:define="restaurants view/get_restaurants | python: {};
+                                               Batch python:modules['Products.CMFPlone'].Batch;
+                                               b_start_restaurants python:0;
+                                               b_start_restaurants request/b_start_restaurants | b_start_restaurants;
+                                               b_size python: int(size) or 5;
+                                               batch python:Batch(restaurants, b_size, int(b_start_restaurants), orphan=0, b_start_str='b_start_restaurants');
+                                               mq python:modules['ZTUtils'].make_query;
+                                               template_id template_id | string:;">
+                                               	
+						<tal:repeat repeat="restaurant batch">
+						   <h3 tal:attributes="id string:name${repeat/restaurant/number}"><a tal:content="restaurant/name" tal:attributes="href string:${context/absolute_url}/restaurant?id=${restaurant/id}" href=""></a></h3>						   
+						   <span tal:content="restaurant/address"></span>
+						   <input class="address" type="hidden" value="" tal:attributes="value restaurant/address; id string:address${repeat/restaurant/number}">
+						   <span tal:content="restaurant/phone_number"></span>
+						   <tal:cond condition="python: restaurant.delivery == True">Sim</tal:cond>
+	                       <tal:cond condition="python: restaurant.delivery != True">False</tal:cond>
+						   <span tal:content="restaurant/opening_hours"></span><br><br>
+						</tal:repeat>
+					
+						<div class="portlet_navegacaoMinha marg-tp10px align-right">
+	                        <span class="setaEsquerda padding06px" 
+	                              tal:define="p batch/previous | nothing"
+	                              tal:condition="p">
+	                            <a href=""
+	                               	tal:attributes="href python: '%s?%s' % (url , mq( request.form, {batch.b_start_str:p.first} ))">
+	                                <span>Anterior</span>
+	                            </a>
+	                        </span>                     
+	                        
+	                        <span class="setaDireita padding06px"
+	                              tal:define="n batch/next | nothing"
+	                              tal:condition="n">
+	                            |
+	                            <a href=""
+	                             tal:attributes="href python: '%s?%s' % (url , mq( request.form, {batch.b_start_str:n.first} ))">
+	                             <span>Pr&oacute;xima</span>
+	                            </a>
+	                        </span>
+	                    </div>
+					</div>
+					
+					<div id="map_canvas" style="width: 500px; height: 500px"></div>
+					
+				</div>
+            </metal:content-core>
+        </metal:main>
+		
+    </body>
+</html>
