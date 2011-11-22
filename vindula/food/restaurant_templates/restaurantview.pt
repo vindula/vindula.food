@@ -55,7 +55,7 @@
 					</tal:condition>
 					
 					<br />
-					<a href="/restaurantslist" alt="Ver todos">Ver todos os restaurantes</a>
+					<a tal:attributes="href string:${context/absolute_url}/restaurantslist" alt="Ver todos">Ver todos os restaurantes</a>
 						
                 </div>
 			             	

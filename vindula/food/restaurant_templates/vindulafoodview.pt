@@ -21,8 +21,8 @@
 				<h4>Cadastro de Restaurantes e Especialidades</h4>
 				
 				<div id="links">
-					<a href="/restaurantpreferences" target="_blank" alt="Cadastrar Restaurante">Cadastrar Restaurante</a>
-					<a href="/specialty" target="_blank" alt="Cadastrar Especialidade">Cadastrar Especialidade</a>
+					<a tal:attributes="href string:${context/absolute_url}/restaurantpreferences" target="_blank" alt="Cadastrar Restaurante">Cadastrar Restaurante</a>
+					<a tal:attributes="href string:${context/absolute_url}/specialty" target="_blank" alt="Cadastrar Especialidade">Cadastrar Especialidade</a>
 				</div>
 
 				<!-- Restaurants -->
