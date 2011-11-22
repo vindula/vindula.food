@@ -20,6 +20,11 @@ from datetime import date , datetime
 from vindula.myvindula.user import BaseFunc
 
 # Views
+class VindulaFoodView(grok.View):
+    grok.context(Interface)
+    grok.require('zope2.View')
+    grok.name('vindula-food')
+
     
 class RestaurantView(grok.View):
     grok.context(Interface)

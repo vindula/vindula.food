@@ -8,11 +8,13 @@
 	  i18n:domain="vindula.food">
 	  	
     <body>
-        <metal:main fill-slot="content-core">
+        <metal:main fill-slot="content">
             <metal:content-core define-macro="content-core">
             	<div id="content" tal:define="form_data view/load_form | python:{};
                                               errors form_data/errors | python:{};
                                               form_values form_data/data | python:{};">
+                                              	
+                    <h1>Cadastro de Especialidade</h1>
 
                     <form method="post" action="specialty">
                     	
@@ -32,8 +34,9 @@
 		                <fieldset>
 		                    <br/>
 		                    <div style="float:left; width:100%">
-		                        <input style="width:100px" class="button-erp" type="submit" value="Voltar" name="form.voltar">
-		                        <input style="width:100px;" class="button-erp" type="submit" value="Salvar" name="form.submited">
+		                        <input style="width:100px" type="submit" value="Voltar" name="form.voltar">
+		                        <input style="width:100px;" type="submit" value="Salvar" name="form.submited">
+								<input style="width:100px;" type="submit" value="Excluir" name="form.delete" tal:condition="request/id | nothing">
 		                    </div>
 		                </fieldset>
 					</form>

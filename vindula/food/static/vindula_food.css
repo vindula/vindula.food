@@ -1,0 +1,58 @@
+/* 
+ * * * VINDULA FOOD VIEW (CONTROL PANEL)  * * *
+ */
+
+.food-control-panel #links { 
+	width: 100%; 
+	margin: 10px 0;
+}
+
+.food-control-panel #links a {
+    font-size: 12px;
+    font-weight: bold;
+    margin-right: 130px;
+}
+
+.food-control-panel .itens {
+	float: left;
+	border: 1px solid #DDDDDD;
+	overflow-y:auto;
+	width: 250px;
+	height: 300px;
+	margin-right: 10px;
+}
+
+.food-control-panel .itens ul { margin: 10px !important; }
+.food-control-panel .itens li { list-style: none; }
+
+
+
+/* 
+ * * * RESTAURANT VIEW  * * *
+ */
+
+div#map_canvas {
+	border: 1px solid #DDDDDD;
+	width: 500px; 
+	height: 500px;
+}
+
+/* 
+ * * * RESTAURANTS LIST VIEW  * * *
+ */
+
+.food-restaurants-list {
+    border: 1px solid #DDDDDD;
+    margin: 20px 0;
+    padding: 10px;
+    width: 480px;
+}
+
+.food-map {
+	border: 1px solid #DDDDDD;
+    margin-bottom: 10px;
+    padding: 5px;
+    width: 490px;
+}
+
+.food-map img { height: 20px; }

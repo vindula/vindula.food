@@ -16,23 +16,27 @@
 			<script type="text/javascript" tal:attributes="src string:${view/static}/maps.js" src=""></script>
         </metal:js>
 		
-		<metal:block fill-slot="top_slot">
-		</metal:block>
+		<metal:css fill-slot="style_slot">
+			<link rel="stylesheet" type="text/css" tal:attributes="href string:${view/static}/vindula_food.css" />
+		</metal:css>
 		
-        <metal:main fill-slot="content-core">
+        <metal:main fill-slot="content">
             <metal:content-core define-macro="content-core">
 				
 				<div id="content" tal:define="url batch_base_url | string:${here/absolute_url}/restaurantslist;
 					                          order request/order | python: 'id';
 											  size request/size | python: '5'">
 											  
-					<span>Ordenação: </span>
+					<h1>Restaurantes</h1>
+					
+					<!-- Filter --> 		  
+					<span>Ordenação: &nbsp; </span>
 					<select id="order">
 						<option tal:attributes="value string:?order=id&size=${size}; selected python: str(order) == 'id'" value="">Novidades</option>
 						<option tal:attributes="value string:?order=name&size=${size}; selected python: str(order) == 'name'" value="">Nome do restaurante(A - Z)</option>
 					</select>
 					
-					<span>Itens por página: </span>
+					<span>&nbsp;  Itens por página: </span>
                     <select id="items_page">
                     	<option tal:attributes="value string:?order=${order}&size=2; selected python: str(size) == '2' or ''" value="">2</option>
                         <option tal:attributes="value string:?order=${order}&size=5; selected python: str(size) == '5' or ''" value="">5</option>
@@ -42,48 +46,38 @@
 					
 					<input name="here_url" type="hidden" tal:attributes="value here/portal_url" />
 					
-					<div id="list" tal:define="restaurants view/get_restaurants | python: {};
-                                               Batch python:modules['Products.CMFPlone'].Batch;
-                                               b_start_restaurants python:0;
-                                               b_start_restaurants request/b_start_restaurants | b_start_restaurants;
-                                               b_size python: int(size) or 5;
-                                               batch python:Batch(restaurants, b_size, int(b_start_restaurants), orphan=0, b_start_str='b_start_restaurants');
-                                               mq python:modules['ZTUtils'].make_query;
-                                               template_id template_id | string:;">
-                                               	
-						<tal:repeat repeat="restaurant batch">
-						   <h3 tal:attributes="id string:name${repeat/restaurant/number}"><a tal:content="restaurant/name" tal:attributes="href string:${context/absolute_url}/restaurant?id=${restaurant/id}" href=""></a></h3>						   
+					<!-- List --> 
+					<div id="list" class="food-restaurants-list" tal:define="restaurants view/get_restaurants | python: {};
+																			 Batch python:modules['Products.CMFPlone'].Batch;
+							                           						 b_size python:int(size);
+							                           						 b_start python:0;
+							                           						 b_start request/b_start | b_start">
+                        
+						<!-- Restaurants -->              	
+						<div tal:define="batch python:Batch(restaurants, b_size, int(b_start), orphan=0);"
+						     tal:repeat="restaurant batch">
+						   <h3 tal:attributes="id string:name${repeat/restaurant/number}"><a tal:content="restaurant/name" tal:attributes="href string:${context/absolute_url}/restaurant?id=${restaurant/id}" href=""></a></h3>						   	   
 						   <span tal:content="restaurant/address"></span>
-						   <input class="address" type="hidden" value="" tal:attributes="value restaurant/address; id string:address${repeat/restaurant/number}">
-						   <span tal:content="restaurant/phone_number"></span>
-						   <tal:cond condition="python: restaurant.delivery == True">Sim</tal:cond>
-	                       <tal:cond condition="python: restaurant.delivery != True">False</tal:cond>
-						   <span tal:content="restaurant/opening_hours"></span><br><br>
-						</tal:repeat>
+						   <span tal:content="string: - Tel. ${restaurant/phone_number}"></span>
+						   <input class="address" type="hidden" tal:attributes="value restaurant/address; id string:address${repeat/restaurant/number}">
+						   <br /><br />
+						</div>
 					
-						<div class="portlet_navegacaoMinha marg-tp10px align-right">
-	                        <span class="setaEsquerda padding06px" 
-	                              tal:define="p batch/previous | nothing"
-	                              tal:condition="p">
-	                            <a href=""
-	                               	tal:attributes="href python: '%s?%s' % (url , mq( request.form, {batch.b_start_str:p.first} ))">
-	                                <span>Anterior</span>
-	                            </a>
-	                        </span>                     
-	                        
-	                        <span class="setaDireita padding06px"
-	                              tal:define="n batch/next | nothing"
-	                              tal:condition="n">
-	                            |
-	                            <a href=""
-	                             tal:attributes="href python: '%s?%s' % (url , mq( request.form, {batch.b_start_str:n.first} ))">
-	                             <span>Pr&oacute;xima</span>
-	                            </a>
-	                        </span>
-	                    </div>
+						<!-- Navigation -->
+						<div tal:define="batch python:Batch(restaurants, b_size, int(b_start), orphan=0);">
+							<div metal:use-macro="here/batch_macros/macros/navigation" />
+						</div>
+			
 					</div>
 					
-					<div id="map_canvas" style="width: 500px; height: 500px"></div>
+					<!-- Map -->
+					<h4>Restaurantes pr&oacute;ximos de voc&ecirc;</h4>
+					<div class="food-map">
+						<span>Clique no mapa e arraste com o mouse para visualizar outras &aacute;reas. O &iacute;cone</span>
+						<img src="http://www.google.com/intl/en_us/mapfiles/ms/micons/restaurant.png">
+						<span>representa os locais dos restaurantes cadastrados.</span>
+					</div>
+					<div id="map_canvas"></div>
 					
 				</div>
             </metal:content-core>

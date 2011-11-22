@@ -1,0 +1,59 @@
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xml:lang="en" 
+	  xmlns:tal="http://xml.zope.org/namespaces/tal" 
+	  xmlns:metal="http://xml.zope.org/namespaces/metal" 
+	  xmlns:i18n="http://xml.zope.org/namespaces/i18n" 
+	  lang="en" 
+	  metal:use-macro="context/prefs_main_template/macros/master"
+	  i18n:domain="vindula.food">
+	  	
+    <body>
+        <metal:main fill-slot="prefs_configlet_content">
+        	
+			<link rel="stylesheet" type="text/css" tal:attributes="href string:${view/static}/vindula_food.css" />
+        	
+        	<div id="content" class="food-control-panel">
+        		
+				<div class="titulo_info">
+					<h2>Configura&ccedil;&otilde;es do Vindula Food</h2>
+				</div><br />
+				
+				<h4>Cadastro de Restaurantes e Especialidades</h4>
+				
+				<div id="links">
+					<a href="/restaurantpreferences" target="_blank" alt="Cadastrar Restaurante">Cadastrar Restaurante</a>
+					<a href="/specialty" target="_blank" alt="Cadastrar Especialidade">Cadastrar Especialidade</a>
+				</div>
+
+				<!-- Restaurants -->
+				<tal:define define="view_restaurants_list python: context.restrictedTraverse('@@restaurantslist');
+								    restaurants view_restaurants_list/get_restaurants">
+					<div class="itens">
+						<ul tal:condition="restaurants">
+							<li tal:repeat="item restaurants">
+								<a tal:content="item/name" target="_blak" tal:attributes="href string:${context/absolute_url}/restaurantpreferences?id=${item/id}"></a>
+							</li>
+						</ul>	
+						<span tal:condition="not: restaurants">Nenhum restaurante cadastrado.</span>			
+					</div>		
+				</tal:define>
+				
+				
+				<!-- Specialties -->	
+				<tal:define define="view_specialties_list python: context.restrictedTraverse('@@restaurantpreferences');
+								    specialties view_specialties_list/get_specialties">
+					<div class="itens">
+						<ul tal:condition="specialties">
+							<li tal:repeat="item specialties">
+								<a tal:content="item/name" target="_blak" tal:attributes="href string:${context/absolute_url}/specialty?id=${item/id}"></a>
+							</li>
+						</ul>	
+						<span tal:condition="not: specialties">Nenhuma especialidade cadastrada.</span>			
+					</div>		
+				</tal:define>
+			
+			</div>
+				
+        </metal:main>
+    </body>
+</html>
