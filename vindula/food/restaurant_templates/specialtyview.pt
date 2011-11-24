@@ -8,11 +8,17 @@
 	  i18n:domain="vindula.food">
 	  	
     <body>
+    	
+		<metal:js fill-slot="javascript_head_slot">
+            <script type="text/javascript" tal:attributes="src string:${view/static}/restaurants.js" src=""></script>
+        </metal:js>
+		
         <metal:main fill-slot="content">
             <metal:content-core define-macro="content-core">
             	<div id="content" tal:define="form_data view/load_form | python:{};
                                               errors form_data/errors | python:{};
-                                              form_values form_data/data | python:{};">
+                                              form_values form_data/data | python:{};
+											  error python: context.REQUEST.get('error') or nothing">
                                               	
                     <h1>Cadastro de Especialidade</h1>
 
@@ -39,6 +45,9 @@
 								<input style="width:100px;" type="submit" value="Excluir" name="form.delete" tal:condition="request/id | nothing">
 		                    </div>
 		                </fieldset>
+												
+						<input id="error-specialty" type="hidden" tal:attributes="value error">
+						
 					</form>
 				
 				</div>

@@ -146,7 +146,7 @@ class ModelsRestaurantPreferences(Storm, BaseFunc):
         self.store.flush()
                                
     def registration_processes(self, ctx):
-        success_url = ctx.context.absolute_url() + '/restaurant'
+        success_url = ctx.context.absolute_url() + '/vindula-food'
         access_denied = ctx.context.absolute_url() + '/login'
         form = ctx.request # var tipo 'dict' que guarda todas as informacoes do formulario (keys,items,values)
         form_keys = form.keys() # var tipo 'list' que guarda todas as chaves do formulario (keys)
@@ -180,7 +180,7 @@ class ModelsRestaurantPreferences(Storm, BaseFunc):
                     # editando...
                     id = int(form.get('id'))
                     result = self.get_food_restaurant().find(id = id).one()
-                    success_url += '?id='+str(id)
+                    success_url = ctx.context.absolute_url() + '/restaurant?id='+str(id)
                     if result:
                         for campo in campos.keys():
                             value = data.get(campo, None)
@@ -198,7 +198,17 @@ class ModelsRestaurantPreferences(Storm, BaseFunc):
                 form_data['errors'] = errors
                 form_data['data'] = data
                 return form_data
-          
+        
+        # se clicou em excluir
+        elif 'form.delete' in form_keys:
+            p_utils = getToolByName(ctx.context, 'plone_utils')
+            if 'id' in form_keys:
+                record = self.get_food_restaurant().find(id = int(form.get('id'))).one()
+                self.store.remove(record)
+                self.store.flush()
+                p_utils.addPortalMessage('Removido com sucesso.', 'info')
+                ctx.request.response.redirect(ctx.context.absolute_url() + '/vindula-food')
+        
         # se for um formulario de edicao 
         elif 'id' in form_keys:
 
@@ -249,7 +259,7 @@ class ModelsSpecialty(Storm, BaseFunc):
         self.store.flush()
     
     def registration_processes(self, ctx):
-        success_url = ctx.context.absolute_url() + '/@@restaurantpreferences'
+        success_url = ctx.context.absolute_url() + '/vindula-food'
         access_denied = ctx.context.absolute_url() + '/login'
         form = ctx.request # var tipo 'dict' que guarda todas as informacoes do formulario (keys,items,values)
         form_keys = form.keys() # var tipo 'list' que guarda todas as chaves do formulario (keys)
@@ -259,7 +269,7 @@ class ModelsSpecialty(Storm, BaseFunc):
         
         if 'rest_id' in form_keys:
             if form.get('rest_id') != None:
-                success_url +='?id=' + form.get('rest_id')
+                success_url = ctx.context.absolute_url() + '/restaurantpreferences?id=' + form.get('rest_id')
         
         # divisao dos dicionarios "errors" e "convertidos"
         form_data = {
@@ -300,9 +310,21 @@ class ModelsSpecialty(Storm, BaseFunc):
                 form_data['data'] = data
                 return form_data
           
+        # se clicou no botão "Excluir"
+        elif 'form.delete' in form_keys:
+            if 'id' in form_keys:
+                result = ModelsRestaurantPreferences().get_food_restaurant().find(vin_food_specialty_id = int(form.get('id')))
+                if result.count() == 0:
+                    record = self.get_food_specialty().find(id = int(form.get('id'))).one()
+                    self.store.remove(record)
+                    self.store.flush()
+                    
+                    ctx.request.response.redirect(success_url)
+                else:
+                    ctx.request.response.redirect(ctx.context.absolute_url() + '/specialty?error=true&id=' + form.get('id'))
+
         # se for um formulario de edicao 
         elif 'id' in form_keys:
-
             id = int(form.get('id'))
             data = self.get_food_specialty().find(id = id).one()
             

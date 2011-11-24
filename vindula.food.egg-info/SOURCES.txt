@@ -13,6 +13,3 @@ vindula.food.egg-info/requires.txt
 vindula.food.egg-info/top_level.txt
 vindula/food/__init__.py
 vindula/food/restaurant.py
-vindula/food/setuphandlers.py
-vindula/food/content/__init__.py
-vindula/food/content/specialty.py
