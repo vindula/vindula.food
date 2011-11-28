@@ -53,22 +53,28 @@
 							                           						 b_start python:0;
 							                           						 b_start request/b_start | b_start">
                         
-						<!-- Restaurants -->              	
-						<div tal:define="batch python:Batch(restaurants, b_size, int(b_start), orphan=0);"
-						     tal:repeat="restaurant batch">
-						   <h3><a tal:content="restaurant/name" tal:attributes="href string:${context/absolute_url}/restaurant?id=${restaurant/id}" href=""></a></h3>						   	   
-						   <span tal:content="restaurant/address"></span>
-						   <span tal:content="string: - Tel. ${restaurant/phone_number}"></span>
-						   <input class="address" type="hidden" tal:attributes="value restaurant/address; id string:address${repeat/restaurant/number}">
-						   <input class="name"    type="hidden" tal:attributes="value restaurant/name   ; id string:name${repeat/restaurant/number}">
-						   <input class="id"      type="hidden" tal:attributes="value restaurant/id   ; id string:id${repeat/restaurant/number}">
-						   <br /><br />
-						</div>
-					
-						<!-- Navigation -->
-						<div tal:define="batch python:Batch(restaurants, b_size, int(b_start), orphan=0);">
-							<div metal:use-macro="here/batch_macros/macros/navigation" />
-						</div>
+						<tal:condition condition="restaurants">
+							<!-- Restaurants -->              	
+							<div tal:define="batch python:Batch(restaurants, b_size, int(b_start), orphan=0);"
+							     tal:repeat="restaurant batch">
+							   <h3><a tal:content="restaurant/name" tal:attributes="href string:${context/absolute_url}/restaurant?id=${restaurant/id}" href=""></a></h3>						   	   
+							   <span tal:content="restaurant/address"></span>
+							   <span tal:content="string: - Tel. ${restaurant/phone_number}"></span>
+							   <input class="address" type="hidden" tal:attributes="value restaurant/address; id string:address${repeat/restaurant/number}">
+							   <input class="name"    type="hidden" tal:attributes="value restaurant/name   ; id string:name${repeat/restaurant/number}">
+							   <input class="id"      type="hidden" tal:attributes="value restaurant/id   ; id string:id${repeat/restaurant/number}">
+							   <br /><br />
+							</div>
+						
+							<!-- Navigation -->
+							<div tal:define="batch python:Batch(restaurants, b_size, int(b_start), orphan=0);">
+								<div metal:use-macro="here/batch_macros/macros/navigation" />
+							</div>
+						</tal:condition>
+						
+						<tal:condition condition="not: restaurants">
+							<span><b>N&atilde;o h&aacute; restaurantes cadastrados.</b></span>
+						</tal:condition>
 			
 					</div>
 					
