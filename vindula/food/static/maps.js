@@ -15,17 +15,24 @@ $j(document).ready(function(){
         };
         var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
         
-        var c=1;
-        do
-        {
-            
-            var address = document.getElementById("address"+c).value;
+		
+		for(var c=1; c <= document.querySelectorAll("input.address").length; c++)
+		{
+			createMark(c)			
+		}
+	
+		function createMark(number) {
+            var marker;
+            var address = document.getElementById("address"+number).value;
+			var name = document.getElementById("name"+number).value;
+			var url = './restaurant';
+			var id = document.getElementById("id"+number).value;
             geocoder.geocode( {'address': address}, function(results, status) {
                 
                 if (status == google.maps.GeocoderStatus.OK) 
                 {
                     var image = 'http://www.google.com/intl/en_us/mapfiles/ms/micons/restaurant.png';
-                    var marker = new google.maps.Marker({
+                    marker = new google.maps.Marker({
                         map: map,
                         position: results[0].geometry.location,
                         icon: image
@@ -34,10 +41,24 @@ $j(document).ready(function(){
                 else 
                 {
                     alert("Geocode was not successful for the following reason: " + status);
-                }                                
+                }
+                
+                var infowindow = new google.maps.InfoWindow({
+                    content: '<div>'+					           
+		                        '<h2><a href="'+url+'?id='+id+'" target="_blank">'+name+'</a></h2>'+
+		                     '</div>'+
+		                     '<div>'+
+		                        address+
+		                     '</div>',
+
+                    size: new google.maps.Size(50,50)
+                });
+                
+                google.maps.event.addListener(marker, 'click', function() {
+                    infowindow.open(map, marker);
+                });                                
             });
-            c++;
-        }while(c <= document.querySelectorAll("input.address").length);
+		}
       
         // Try HTML5 geolocation
         if(navigator.geolocation) {
@@ -72,6 +93,11 @@ $j(document).ready(function(){
             handleNoGeolocation(browserSupportFlag);
         }
     } 
+	
+	function centraliza()
+	{
+    
+	}
     
     google.maps.event.addDomListener(window, 'load', initialize);
 });

@@ -18,7 +18,7 @@
             	<div id="content" tal:define="form_data view/load_form | python:{};
                                               errors form_data/errors | python:{};
                                               form_values form_data/data | python:{};
-											  error python: context.REQUEST.get('error') or nothing">
+											  error python: context.REQUEST.get('error') or 'false'">
                                               	
                     <h1>Cadastro de Especialidade</h1>
 

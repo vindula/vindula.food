@@ -18,7 +18,7 @@ $j(document).ready(function(){
        window.location = url + option.value;
 	});
 	
-	if ($j('input#error-specialty').val() != "")
+	if ($j('input#error-specialty').val() == 'true')
 	{
 		alert('Essa especialidade não pode ser excluida pois está vinculada a um restaurante.')
 	}

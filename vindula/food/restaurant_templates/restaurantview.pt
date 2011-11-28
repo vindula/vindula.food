@@ -40,6 +40,7 @@
 						</tal:cond><br />
                         <span tal:content="string: Hor&aacute;rio de funcionamento: ${restaurant/opening_hours | nothing}"></span><br />
                         <input id="address" type="hidden" tal:attributes="value restaurant/address"><br />
+						<input id="name" type="hidden" tal:attributes="value restaurant/name"><br />
 						
 						<h4>Localiza&ccedil;&atilde;o</h4>
 						<div class="food-map">
