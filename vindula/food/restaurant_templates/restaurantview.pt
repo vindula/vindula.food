@@ -46,7 +46,7 @@
 						<div class="food-map">
 							<span>Clique no mapa e arraste com o mouse para visualizar outras &aacute;reas. O &iacute;cone</span>
 							<img src="http://maps.google.com/mapfiles/markerff.gif">
-							<span>representa o local do restaurante.</span>
+							<span> representa o local do restaurante.</span>
 						</div>
 						<div id="map_canvas"></div>
 					</tal:condition>

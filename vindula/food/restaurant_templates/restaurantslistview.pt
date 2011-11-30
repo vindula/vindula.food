@@ -57,10 +57,10 @@
 							<!-- Restaurants -->              	
 							<div tal:define="batch python:Batch(restaurants, b_size, int(b_start), orphan=0);"
 							     tal:repeat="restaurant batch">
-							   <h3><a tal:content="restaurant/name" tal:attributes="href string:${context/absolute_url}/restaurant?id=${restaurant/id}" href=""></a></h3>						   	   
-							   <span><a tal:content="restaurant/address" tal:attributes="class string:address-map${repeat/restaurant/number}"></a></span>
+							   <h3><a title="Ver mais informa&ccedil;&otilde;es deste restaurante" tal:content="restaurant/name" tal:attributes="href string:${context/absolute_url}/restaurant?id=${restaurant/id}" href=""></a></h3>						   	   
+							   <span><a title="Ver a localiza&ccedil;&atilde;o do restaurante no mapa" tal:content="restaurant/address" tal:attributes="class string:address-map${repeat/restaurant/number}"></a></span>
 							   <span tal:content="string: - Tel. ${restaurant/phone_number}"></span><br>
-							   <span><a tal:attributes="class string:tracaRota${repeat/restaurant/number}">Rota...</a></span>
+							   <span><a title="Tra&ccedil;ar a rota at&eacute; o restaurante" tal:attributes="class string:tracaRota${repeat/restaurant/number}">Como chegar...</a></span>
 							   <input class="address" type="hidden" tal:attributes="value restaurant/address; id string:address${repeat/restaurant/number}">
 							   <input class="name"    type="hidden" tal:attributes="value restaurant/name   ; id string:name${repeat/restaurant/number}">
 							   <input class="id"      type="hidden" tal:attributes="value restaurant/id   ; id string:id${repeat/restaurant/number}">

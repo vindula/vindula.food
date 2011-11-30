@@ -26,16 +26,19 @@
 .food-control-panel .itens li { list-style: none; }
 
 
-
 /* 
  * * * RESTAURANT VIEW  * * *
  */
 
 div#map_canvas {
 	border: 1px solid #DDDDDD;
-	width: 500px; 
+	width: 97%;
 	height: 500px;
+	padding: 10px;
 }
+
+div#map_canvas h2.secondHeading { font-size: 14px; }
+div#map_canvas div#bodyContent p { font-size: 11px; }
 
 /* 
  * * * RESTAURANTS LIST VIEW  * * *
@@ -45,14 +48,16 @@ div#map_canvas {
     border: 1px solid #DDDDDD;
     margin: 20px 0;
     padding: 10px;
-    width: 480px;
+  	width: 97%;
 }
+
+.food-restaurants-list span a { cursor:pointer; }
 
 .food-map {
 	border: 1px solid #DDDDDD;
     margin-bottom: 10px;
-    padding: 5px;
-    width: 490px;
+    padding: 10px;
+	width: 97%;
 }
 
 .food-map img { height: 20px; }
