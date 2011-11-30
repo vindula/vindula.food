@@ -268,7 +268,7 @@ class ModelsSpecialty(Storm, BaseFunc):
                  } 
         
         if 'rest_id' in form_keys:
-            if form.get('rest_id') != None:
+            if form.get('rest_id') != 'None':
                 success_url = ctx.context.absolute_url() + '/restaurantpreferences?id=' + form.get('rest_id')
         
         # divisao dos dicionarios "errors" e "convertidos"
