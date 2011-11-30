@@ -1,23 +1,28 @@
 $j = jQuery.noConflict();
 
 $j(document).ready(function(){
-
-    var initialLocation;
-    var siberia = new google.maps.LatLng(60, 105);
-    var newyork = new google.maps.LatLng(40.69847032728747, -73.9514422416687);
+    var directionDisplay;
+	var directionsService = new google.maps.DirectionsService();
     var browserSupportFlag =  new Boolean();
-    var marker = new Array(document.querySelectorAll("input.address").length);
-    var infowindow = new Array(document.querySelectorAll("input.address").length);
+	var qdt_rest = document.querySelectorAll("input.address").length
+    var marker = new Array(qdt_rest);
+    var infowindow = new Array(qdt_rest);
+	var dest_pos = new Array(qdt_rest);
+	var minha_pos;
     
     function initialize() {
         geocoder = new google.maps.Geocoder();
+		directionsDisplay = new google.maps.DirectionsRenderer({suppressMarkers: true});
+		
         var myOptions = {
             zoom: 13,
             mapTypeId: google.maps.MapTypeId.ROADMAP
         };
+		
         var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+		directionsDisplay.setMap(map);
         
-        for(var c=1; c <= document.querySelectorAll("input.address").length; c++)
+        for(var c=1; c <= qdt_rest; c++)
         {
             createMark(c);
         }
@@ -25,52 +30,55 @@ $j(document).ready(function(){
         function createMark(number) {
             var address = document.getElementById("address"+number).value;
             var name = document.getElementById("name"+number).value;
+			var id = document.getElementById("id"+number).value;
             var url = './restaurant';
-            var id = document.getElementById("id"+number).value;
-            
+            var image = 'http://www.google.com/intl/en_us/mapfiles/ms/micons/restaurant.png';
+			var contador = number-1;
+			
             geocoder.geocode( {'address': address}, function(results, status) {
                 
                 if (status == google.maps.GeocoderStatus.OK) 
                 {
-                    var image = 'http://www.google.com/intl/en_us/mapfiles/ms/micons/restaurant.png';
-                    marker[number-1] = new google.maps.Marker({
+					dest_pos[contador] = results[0].geometry.location;
+                    marker[contador] = new google.maps.Marker({
                         map: map,
                         position: results[0].geometry.location,
                         icon: image
                     });
+					
+					infowindow[contador] = new google.maps.InfoWindow({
+		                content: '<div>'+
+		                            '<h2 id="secondHeading" class="secondHeading"><a href="'+url+'?id='+id+'" target="_blank">'+name+'</a></h2>'+
+		                            '<div id="bodyContent">'+
+		                                '<p>'+address+'</p>'+
+		                            '</div>'+
+		                         '</div>',
+	                });
+		                
+	                google.maps.event.addListener(marker[contador], 'click', function() {
+	                    infowindow[contador].open(map, marker[number-1]);
+	                });
+	                
+	                $j('.address-map'+number).click(function(){
+	                    var pos = marker[contador].getPosition();
+	                    map.setCenter(pos);
+	                    map.setZoom(15);
+	                    for(var x=0; x < infowindow.length; x++)
+	                    {
+	                        if(x != number-1)
+	                          infowindow[x].close();
+	                    }
+	                    google.maps.event.trigger(marker[number-1], 'click');
+	                });
+	                
+	                $j('.tracaRota'+number).click(function(){
+	                    tracaRota(minha_pos, dest_pos[contador]);
+	                });
                 }
                 else 
                 {
                     alert("Geocode was not successful for the following reason: " + status);
                 }
-                
-                infowindow[number-1] = new google.maps.InfoWindow({
-                    content: '<div>'+                              
-                                '<h2><a href="'+url+'?id='+id+'" target="_blank">'+name+'</a></h2>'+
-                             '</div>'+
-                             '<div>'+
-                                address+
-                             '</div>',
-
-                    size: new google.maps.Size(50,50)
-                });
-                
-                google.maps.event.addListener(marker[number-1], 'click', function() {
-                    infowindow[number-1].open(map, marker[number-1]);
-                });
-                
-                $j('.address-map'+number).click(function(){
-                    var pos = marker[number-1].getPosition();
-                    map.setCenter(pos);
-                    map.setZoom(15);
-                    for(var x=0; x < infowindow.length; x++)
-                    {
-                        if(x != number-1)
-                          infowindow[x].close();
-                    }
-                    google.maps.event.trigger(marker[number-1], 'click');
-                });
-                
             });
             
             
@@ -79,26 +87,32 @@ $j(document).ready(function(){
         // Try HTML5 geolocation
         if(navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function(position) {
-                var pos = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
+                minha_pos = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
                 var image = 'http://www.google.com/intl/en_us/mapfiles/ms/micons/arrow.png';
                 var marker = new google.maps.Marker({
                     map:map,
                     draggable:true,
                     animation: google.maps.Animation.DROP,
-                    position: pos,
+                    position: minha_pos,
                     title: "Você está aqui.",
                     icon: image
                 });
-                map.setCenter(pos);
+                map.setCenter(minha_pos);
+				
+				google.maps.event.addListener(marker, 'dragend', function() {
+                    minha_pos = marker.getPosition();
+                });
+				
             }, function() {
                    handleNoGeolocation(browserSupportFlag);
                });
+			   
         // Try Google Gears Geolocation
         } else if (google.gears) {
             browserSupportFlag = true;
             var geo = google.gears.factory.create('beta.geolocation');
             geo.getCurrentPosition(function(position) {
-                initialLocation = new google.maps.LatLng(position.latitude,position.longitude);
+                var initialLocation = new google.maps.LatLng(position.latitude,position.longitude);
                 map.setCenter(initialLocation);
             }, function() {
                 handleNoGeoLocation(browserSupportFlag);
@@ -109,8 +123,21 @@ $j(document).ready(function(){
             handleNoGeolocation(browserSupportFlag);
         }
         
-    } 
-    
+    }
+	
+	function tracaRota(inicio, fim)
+	{
+		var request = {
+			origin:inicio, 
+			destination:fim,
+			travelMode: google.maps.DirectionsTravelMode.DRIVING
+		};
+		directionsService.route(request, function(result, status) {
+		  if (status == google.maps.DirectionsStatus.OK) {
+		      directionsDisplay.setDirections(result);
+		  }
+		});
+	}
     
     google.maps.event.addDomListener(window, 'load', initialize);
     

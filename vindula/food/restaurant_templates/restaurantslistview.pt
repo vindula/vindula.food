@@ -59,7 +59,8 @@
 							     tal:repeat="restaurant batch">
 							   <h3><a tal:content="restaurant/name" tal:attributes="href string:${context/absolute_url}/restaurant?id=${restaurant/id}" href=""></a></h3>						   	   
 							   <span><a tal:content="restaurant/address" tal:attributes="class string:address-map${repeat/restaurant/number}"></a></span>
-							   <span tal:content="string: - Tel. ${restaurant/phone_number}"></span>
+							   <span tal:content="string: - Tel. ${restaurant/phone_number}"></span><br>
+							   <span><a tal:attributes="class string:tracaRota${repeat/restaurant/number}">Rota...</a></span>
 							   <input class="address" type="hidden" tal:attributes="value restaurant/address; id string:address${repeat/restaurant/number}">
 							   <input class="name"    type="hidden" tal:attributes="value restaurant/name   ; id string:name${repeat/restaurant/number}">
 							   <input class="id"      type="hidden" tal:attributes="value restaurant/id   ; id string:id${repeat/restaurant/number}">

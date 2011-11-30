@@ -8,11 +8,9 @@ $j(document).ready(function(){
     function initialize() 
     {
         geocoder = new google.maps.Geocoder();
-        var latlng = new google.maps.LatLng(-23.548566,-46.64443);
         var myOptions = 
         {
             zoom: 16,
-            center: latlng,
             mapTypeId: google.maps.MapTypeId.ROADMAP
         }
         map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
