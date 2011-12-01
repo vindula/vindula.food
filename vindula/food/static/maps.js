@@ -1,19 +1,19 @@
 $j = jQuery.noConflict();
 
 $j(document).ready(function(){
+	
     var directionDisplay;
+    var minha_pos;
 	var directionsService = new google.maps.DirectionsService();
     var browserSupportFlag =  new Boolean();
-	var qdt_rest = document.querySelectorAll("input.address").length
+	
+	var qdt_rest = document.querySelectorAll("input.address").length;
     var marker = new Array(qdt_rest);
     var infowindow = new Array(qdt_rest);
 	var dest_pos = new Array(qdt_rest);
-	var minha_pos;
-    
-    function initialize() {
-        geocoder = new google.maps.Geocoder();
+	
+    function initialize(){
 		directionsDisplay = new google.maps.DirectionsRenderer({suppressMarkers: true});
-		
         var myOptions = {
             zoom: 13,
             mapTypeId: google.maps.MapTypeId.ROADMAP
@@ -28,15 +28,15 @@ $j(document).ready(function(){
         }
     
         function createMark(number) {
+			var geocoder = new google.maps.Geocoder();
             var address = document.getElementById("address"+number).value;
             var name = document.getElementById("name"+number).value;
 			var id = document.getElementById("id"+number).value;
             var url = './restaurant';
             var image = 'http://www.google.com/intl/en_us/mapfiles/ms/micons/restaurant.png';
 			var contador = number-1;
-			
+
             geocoder.geocode( {'address': address}, function(results, status) {
-                
                 if (status == google.maps.GeocoderStatus.OK) 
                 {
 					dest_pos[contador] = results[0].geometry.location;
@@ -52,7 +52,7 @@ $j(document).ready(function(){
 		                            '<div id="bodyContent">'+
 		                                '<p>'+address+'</p>'+
 		                            '</div>'+
-		                         '</div>',
+		                         '</div>'
 	                });
 		                
 	                google.maps.event.addListener(marker[contador], 'click', function() {
@@ -80,14 +80,13 @@ $j(document).ready(function(){
                     alert("Geocode was not successful for the following reason: " + status);
                 }
             });
-            
-            
         }
-      
-        // Try HTML5 geolocation
-        if(navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function(position) {
-                minha_pos = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
+
+		// Try W3C Geolocation (Preferred)
+		if(navigator.geolocation) {
+			browserSupportFlag = true;
+			navigator.geolocation.getCurrentPosition(function(position) {
+				minha_pos = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
                 var image = 'http://www.google.com/intl/en_us/mapfiles/ms/micons/arrow.png';
                 var marker = new google.maps.Marker({
                     map:map,
@@ -98,31 +97,52 @@ $j(document).ready(function(){
                     icon: image
                 });
                 map.setCenter(minha_pos);
-				
-				google.maps.event.addListener(marker, 'dragend', function() {
+                
+                google.maps.event.addListener(marker, 'dragend', function() {
                     minha_pos = marker.getPosition();
                 });
-				
-            }, function() {
-                   handleNoGeolocation(browserSupportFlag);
-               });
-			   
-        // Try Google Gears Geolocation
-        } else if (google.gears) {
-            browserSupportFlag = true;
-            var geo = google.gears.factory.create('beta.geolocation');
-            geo.getCurrentPosition(function(position) {
-                var initialLocation = new google.maps.LatLng(position.latitude,position.longitude);
-                map.setCenter(initialLocation);
-            }, function() {
-                handleNoGeoLocation(browserSupportFlag);
-               });
-        } else {
-        // Browser doesn't support Geolocation
-            browserSupportFlag = false;
-            handleNoGeolocation(browserSupportFlag);
-        }
-        
+			}, function() {
+                handleNoGeolocation(browserSupportFlag);
+			});
+			
+		// Try Google Gears Geolocation
+		} else if (google.gears) {
+			browserSupportFlag = true;
+			var geo = google.gears.factory.create('beta.geolocation');
+			geo.getCurrentPosition(function(position) {
+				minha_pos = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
+                var image = 'http://www.google.com/intl/en_us/mapfiles/ms/micons/arrow.png';
+                var marker = new google.maps.Marker({
+                    map:map,
+                    draggable:true,
+                    animation: google.maps.Animation.DROP,
+                    position: minha_pos,
+                    title: "Você está aqui.",
+                    icon: image
+                });
+                map.setCenter(minha_pos);
+                
+                google.maps.event.addListener(marker, 'dragend', function() {
+                    minha_pos = marker.getPosition();
+                });
+			}, function() {
+			    handleNoGeoLocation(browserSupportFlag);
+			});
+		// Browser doesn't support Geolocation
+		} else {
+			browserSupportFlag = false;
+			handleNoGeolocation(browserSupportFlag);
+		}
+		
+		function handleNoGeolocation(errorFlag) {
+			var siberia = new google.maps.LatLng(60, 105);
+			if (errorFlag == true) {
+				alert("Falha no serviço de geolocalização.");
+			} else {
+				alert("Seu navegador não tem suporte para geolocalização. Use um navegador mais recente");
+			}
+			map.setCenter(siberia);
+		}
     }
 	
 	function tracaRota(inicio, fim)
@@ -132,6 +152,7 @@ $j(document).ready(function(){
 			destination:fim,
 			travelMode: google.maps.DirectionsTravelMode.DRIVING
 		};
+		
 		directionsService.route(request, function(result, status) {
 		  if (status == google.maps.DirectionsStatus.OK) {
 		      directionsDisplay.setDirections(result);
@@ -140,5 +161,4 @@ $j(document).ready(function(){
 	}
     
     google.maps.event.addDomListener(window, 'load', initialize);
-    
 });
