@@ -66,7 +66,7 @@
 						
 						<div class="field" tal:attributes="class python: view.field_class(errors, 'delivery')">
 		                    <label for="delivery">Delivery</label>
-		                    <div class="formHelp">Marque esta opção se o restante tiver serviço de delivery.</div>
+		                    <div class="formHelp">Marque esta opção se o restaurante tiver serviço de delivery.</div>
 		                    <div tal:content="errors/delivery|nothing"></div> 
 		                    <input id="delivery" type="checkbox" value="" checked="" name="delivery" 
 							       tal:attributes="value request/delivery | form_values/delivery | nothing;
@@ -79,6 +79,23 @@
 		                    <div tal:content="errors/opening_hours|nothing"></div> 
 		                    <input id="opening_hours" type="text" value="" 
 		                    name="opening_hours" size="25" tal:attributes="value request/opening_hours | form_values/opening_hours | nothing">
+		                </div>
+						
+						<div class="field" tal:attributes="class python: view.field_class(errors, 'has_agreement')">
+		                    <label for="has_agreement">Conv&ecirc;nio</label>
+		                    <div class="formHelp">Marque esta opção se o restaurante tiver conv&ecirc;nio com a empresa.</div>
+		                    <div tal:content="errors/has_agreement|nothing"></div> 
+		                    <input id="has_agreement" type="checkbox" value="" checked="" name="has_agreement" 
+							       tal:attributes="value request/has_agreement | form_values/has_agreement | nothing;
+								                   checked request/has_agreement | form_values/has_agreement | nothing">
+		                </div>
+						
+						<div class="field" tal:attributes="class python: view.field_class(errors, 'agreement')">
+		                    <label for="agreement">Nome do conv&ecirc;nio</label>
+		                    <div class="formHelp">Insira o nome do conv&ecirc;nio, se houver.</div>
+		                    <div tal:content="errors/agreement|nothing"></div> 
+		                    <input id="agreement" type="text" value="" 
+		                    name="agreement" size="25" tal:attributes="value request/agreement | form_values/agreement | nothing">
 		                </div>
 						
 						<!-- Botões de ação --> 
