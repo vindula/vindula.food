@@ -39,6 +39,13 @@
                         	Possui Delivery: N&atilde;o
 						</tal:cond><br />
                         <span tal:content="string: Hor&aacute;rio de funcionamento: ${restaurant/opening_hours | nothing}"></span><br />
+						<tal:cond condition="python: restaurant.has_agreement == True">
+                        	Possui conv&ecirc;nio com a empresa: Sim
+						</tal:cond>
+                        <tal:cond condition="python: restaurant.has_agreement != True">
+                        	Possui conv&ecirc;nio com a empresa: N&atilde;o
+						</tal:cond><br />
+						<span tal:content="string: Nome do conv&ecirc;nio: ${restaurant/agreement | nothing}"></span><br />
                         <input id="address" type="hidden" tal:attributes="value restaurant/address"><br />
 						<input id="name" type="hidden" tal:attributes="value restaurant/name"><br />
 						

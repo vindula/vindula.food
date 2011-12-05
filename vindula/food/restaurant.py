@@ -113,6 +113,8 @@ class ModelsRestaurantPreferences(Storm, BaseFunc):
     phone_number = Unicode()
     delivery = Bool()
     opening_hours = Unicode()
+    has_agreement = Bool()
+    agreement = Unicode()
 
     specialty = Reference(vin_food_specialty_id, "ModelsSpecialty.id")
     
@@ -133,12 +135,14 @@ class ModelsRestaurantPreferences(Storm, BaseFunc):
     
     def set_food_restaurant(self,**kwargs):
         D={}
-        D['name']                  = unicode(kwargs.get('name'                 ,''))
-        D['vin_food_specialty_id'] = kwargs.get('vin_food_specialty_id','')
-        D['address']               = unicode(kwargs.get('address'              ,''))
-        D['phone_number']          = unicode(kwargs.get('phone_number'         ,''))
-        D['delivery']              = kwargs.get('delivery'             , False)
-        D['opening_hours']         = unicode(kwargs.get('opening_hours'        ,''))
+        D['name']                  = unicode(kwargs.get('name'              ,''))
+        D['vin_food_specialty_id'] = kwargs.get('vin_food_specialty_id'     ,'')
+        D['address']               = unicode(kwargs.get('address'           ,''))
+        D['phone_number']          = unicode(kwargs.get('phone_number'      ,''))
+        D['delivery']              = kwargs.get('delivery'                  ,False)
+        D['opening_hours']         = unicode(kwargs.get('opening_hours'     ,''))
+        D['has_agreement']         = kwargs.get('has_agreement'             ,False)
+        D['agreement']             = unicode(kwargs.get('agreement'         ,''))
         
         # adicionando...
         restaurant = ModelsRestaurantPreferences(**D)
@@ -156,7 +160,9 @@ class ModelsRestaurantPreferences(Storm, BaseFunc):
                   'address'              : {'required': True , 'type': to_utf8}, #campo obrigatorio
                   'phone_number'         : {'required': False, 'type': to_utf8},
                   'delivery'             : {'required': False, 'type': bool   },
-                  'opening_hours'        : {'required': False, 'type': to_utf8} 
+                  'opening_hours'        : {'required': False, 'type': to_utf8},
+                  'has_agreement'        : {'required': False, 'type': bool   }, 
+                  'agreement'            : {'required': False, 'type': to_utf8}
                  } 
         
         # divisao dos dicionarios "errors" e "convertidos"
