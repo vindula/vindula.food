@@ -14,61 +14,55 @@
 			<script type="text/javascript" tal:attributes="src string:${view/static}/maps_geocoder.js"></script>
 		</metal:js>
 		
-		<metal:block fill-slot="top_slot">
+		<!--metal:block fill-slot="top_slot">
 	        <tal:dummy tal:define="dummy python:request.set('disable_border',1)" />
-		</metal:block>
+		</metal:block-->
 		
 		<metal:css fill-slot="style_slot">
 			<link rel="stylesheet" type="text/css" tal:attributes="href string:${view/static}/vindula_food.css" />
 		</metal:css>
 		
-        <metal:main fill-slot="content">
-            <metal:content-core define-macro="content-core">
-				
-				<div id="content" tal:define="restaurant view/get_restaurant | python:{}">
+        <metal:main fill-slot="main" tal:define="restaurant view/get_restaurant | python:{}">
 				              
-					<tal:condition condition="restaurant">
-                        <h1 tal:content="string: Restaurante ${restaurant/name}"></h1>
-                        <span tal:content="string: Especialidade: ${restaurant/specialty/name | nothing}"></span><br />
-                        <span tal:content="string: Endere&ccedil;o: ${restaurant/address | nothing}"></span><br />
-                        <span tal:content="string: Telefone: ${restaurant/phone_number | nothing}"></span><br />
-                        <tal:cond condition="python: restaurant.delivery == True">
-                        	Possui Delivery: Sim
-						</tal:cond>
-                        <tal:cond condition="python: restaurant.delivery != True">
-                        	Possui Delivery: N&atilde;o
-						</tal:cond><br />
-                        <span tal:content="string: Hor&aacute;rio de funcionamento: ${restaurant/opening_hours | nothing}"></span><br />
-						<tal:cond condition="python: restaurant.has_agreement == True">
-                        	Possui conv&ecirc;nio com a empresa: Sim
-							<br />
-							<span tal:content="string: Nome do conv&ecirc;nio: ${restaurant/agreement | nothing}"></span><br />
-						</tal:cond>
-                        <tal:cond condition="python: restaurant.has_agreement != True">
-                        	Possui conv&ecirc;nio com a empresa: N&atilde;o
-						</tal:cond>
-                        <input id="address" type="hidden" tal:attributes="value restaurant/address"><br />
-						<input id="name" type="hidden" tal:attributes="value restaurant/name"><br />
-						
-						<h4>Localiza&ccedil;&atilde;o</h4>
-						<div class="food-map">
-							<span>Clique no mapa e arraste com o mouse para visualizar outras &aacute;reas. O &iacute;cone</span>
-							<img src="http://maps.google.com/mapfiles/markerff.gif">
-							<span> representa o local do restaurante.</span>
-						</div>
-						<div id="map_canvas"></div>
-					</tal:condition>
-					
-					<tal:condition condition="not: restaurant">
-						<h1>Restaurante n&atilde;o encontrado.</h1>
-					</tal:condition>
-					
+			<tal:condition condition="restaurant">
+                <h1 tal:content="string: Restaurante ${restaurant/name}"></h1>
+                <span tal:content="string: Especialidade: ${restaurant/specialty/name | nothing}"></span><br />
+                <span tal:content="string: Endere&ccedil;o: ${restaurant/address | nothing}"></span><br />
+                <span tal:content="string: Telefone: ${restaurant/phone_number | nothing}"></span><br />
+                <tal:cond condition="python: restaurant.delivery == True">
+                	Possui Delivery: Sim
+				</tal:cond>
+                <tal:cond condition="python: restaurant.delivery != True">
+                	Possui Delivery: N&atilde;o
+				</tal:cond><br />
+                <span tal:content="string: Hor&aacute;rio de funcionamento: ${restaurant/opening_hours | nothing}"></span><br />
+				<tal:cond condition="python: restaurant.has_agreement == True">
+                	Possui conv&ecirc;nio com a empresa: Sim
 					<br />
-					<a tal:attributes="href string:${context/absolute_url}/restaurantslist" alt="Ver todos">Ver todos os restaurantes</a>
-						
-                </div>
-			             	
-            </metal:content-core>
+					<span tal:content="string: Nome do conv&ecirc;nio: ${restaurant/agreement | nothing}"></span><br />
+				</tal:cond>
+                <tal:cond condition="python: restaurant.has_agreement != True">
+                	Possui conv&ecirc;nio com a empresa: N&atilde;o
+				</tal:cond>
+                <input id="address" type="hidden" tal:attributes="value restaurant/address"><br />
+				<input id="name" type="hidden" tal:attributes="value restaurant/name"><br />
+				
+				<h4>Localiza&ccedil;&atilde;o</h4>
+				<div class="food-map">
+					<span>Clique no mapa e arraste com o mouse para visualizar outras &aacute;reas. O &iacute;cone</span>
+					<img src="http://maps.google.com/mapfiles/markerff.gif">
+					<span> representa o local do restaurante.</span>
+				</div>
+				<div id="map_canvas"></div>
+			</tal:condition>
+			
+			<tal:condition condition="not: restaurant">
+				<h1>Restaurante n&atilde;o encontrado.</h1>
+			</tal:condition>
+			
+			<br />
+			<a tal:attributes="href string:${context/absolute_url}" alt="Ver todos">Ver todos os restaurantes</a>
+
         </metal:main>
     </body>
 </html>

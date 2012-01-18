@@ -11,48 +11,52 @@
     	
 		<metal:js fill-slot="javascript_head_slot">
             <script type="text/javascript" tal:attributes="src string:${view/static}/restaurants.js" src=""></script>
+			<script type="text/javascript">
+				$j = jQuery.noConflict();
+				$j(document).ready(function(){
+					/* Aba de edição do conteudo*/
+					$j('#contentview-specialty').addClass('selected');
+					$j('#contentview-view').removeClass('selected');
+				});
+			</script>
         </metal:js>
 		
-        <metal:main fill-slot="content">
-            <metal:content-core define-macro="content-core">
-            	<div id="content" tal:define="form_data view/load_form | python:{};
+        <metal:main fill-slot="main" tal:define="form_data view/load_form | python:{};
                                               errors form_data/errors | python:{};
                                               form_values form_data/data | python:{};
 											  error python: context.REQUEST.get('error') or 'false'">
-                                              	
-                    <h1>Cadastro de Especialidade</h1>
-
-                    <form method="post" action="specialty">
-                    	
-						<input tal:condition="request/id | nothing" id="id" type="hidden" value="" name="id" tal:attributes="value request/id | nothing">
-						<input tal:condition="request/rest_id | nothing" id="rest_id" type="hidden" value="" name="rest_id" tal:attributes="value request/rest_id">
+    
+			<h2 tal:condition="request/id|nothing"  
+				tal:content="string:Editação da especialidade '${form_values/name|nothing}'"> </h2>
+			<h2 tal:condition="not: request/id|nothing">Cadastro de Especialidade</h2>    
+	
+	        <form method="post" id="manage-specialty" class="enableAutoFocus" tal:attributes="action string:${context/absolute_url|nothing}/manage-specialty" enctype="multipart/form-data">
+	        	
+				<input tal:condition="request/id | nothing" id="id" type="hidden" value="" name="id" tal:attributes="value request/id | nothing">
+				<input tal:condition="request/rest_id | nothing" id="rest_id" type="hidden" value="" name="rest_id" tal:attributes="value request/rest_id">
+		
+				<div class="field">
+	                <label for="name">Nome</label>
+	                <span class="fieldRequired" title="Obrigatório">(Obrigatório)</span>
+	                <div class="formHelp">Insira o nome da especialidade/tipo.</div>
+	                <div tal:content="errors/name|nothing"></div> 
+	                <input id="name" type="text" value="" name="name" size="25" tal:attributes="value request/name | form_values/name | nothing">
+	            </div>
 				
-						<div class="field">
-		                    <label for="name">Nome</label>
-		                    <span class="fieldRequired" title="Obrigatório">(Obrigatório)</span>
-		                    <div class="formHelp">Insira o nome da especialidade/tipo.</div>
-		                    <div tal:content="errors/name|nothing"></div> 
-		                    <input id="name" type="text" value="" name="name" size="25" tal:attributes="value request/name | form_values/name | nothing">
-		                </div>
-						
-						
-						<!-- Botões de ação --> 
-		                <fieldset>
-		                    <br/>
-		                    <div style="float:left; width:100%">
-		                        <input style="width:100px" type="submit" value="Voltar" name="form.voltar">
-		                        <input style="width:100px;" type="submit" value="Salvar" name="form.submited">
-								<input style="width:100px;" type="submit" value="Excluir" name="form.delete" tal:condition="request/id | nothing">
-		                    </div>
-		                </fieldset>
-												
-						<input id="error-specialty" type="hidden" tal:attributes="value error">
-						
-					</form>
 				
-				</div>
+				<!-- Botões de ação --> 
+	            <fieldset>
+	                <br/>
+	                <div style="float:left; width:100%">
+	                    <input style="width:100px" type="submit" value="Voltar" name="form.voltar">
+	                    <input style="width:100px;" type="submit" value="Salvar" name="form.submited">
+						<input style="width:100px;" type="submit" value="Excluir" name="form.delete" tal:condition="request/id | nothing">
+	                </div>
+	            </fieldset>
+										
+				<input id="error-specialty" type="hidden" tal:attributes="value error">
 				
-            </metal:content-core>
+			</form>
         </metal:main>
     </body>
 </html>
