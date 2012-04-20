@@ -11,11 +11,11 @@
         <metal:main fill-slot="main">
 			<meta:macro metal:define-macro="page-view">
 				<div tal:define="view python:context.restrictedTraverse('@@restaurantslist');	
-											  url batch_base_url | string:${here/absolute_url}/restaurantslist;
-					                          order request/order | python: 'id';
-											  size request/size | python: '5'">
+								 url view/get_url | batch_base_url | string:${here/absolute_url}/restaurantslist;
+		                         order request/order | python: 'id';
+								 size request/size | python: '5'">
 	
-				<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=true"></script>
+				<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
 	            <script type="text/javascript" src="http://code.google.com/apis/gears/gears_init.js"></script>
 				<script type="text/javascript" tal:attributes="src string:${view/static}/restaurants.js" src=""></script>
 				<script type="text/javascript" tal:attributes="src string:${view/static}/maps.js" src=""></script>
@@ -38,7 +38,7 @@
                         <option tal:attributes="value string:?order=${order}&size=20; selected python: str(size) == '20' or ''" value="">20</option>
                     </select>
 					
-					<input name="here_url" type="hidden" tal:attributes="value here/portal_url" />
+					<input name="here_url" type="hidden" tal:attributes="value here/absolute_url" />
 					
 					<!-- List --> 
 					<div id="list" class="food-restaurants-list" tal:define="restaurants view/get_restaurants | python: {};

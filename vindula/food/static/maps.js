@@ -77,7 +77,7 @@ $j(document).ready(function(){
                 }
                 else 
                 {
-                    alert("Geocode was not successful for the following reason: " + status);
+                    //alert("Geocode was not successful for the following reason: " + status);
                 }
             });
         }
@@ -135,13 +135,13 @@ $j(document).ready(function(){
 		}
 		
 		function handleNoGeolocation(errorFlag) {
-			var siberia = new google.maps.LatLng(60, 105);
+			var saopaulo = new google.maps.LatLng(-23.548842,-46.639023);
 			if (errorFlag == true) {
-				alert("Falha no serviço de geolocalização.");
+				//alert("Falha no serviço de geolocalização.");
 			} else {
 				alert("Seu navegador não tem suporte para geolocalização. Use um navegador mais recente");
 			}
-			map.setCenter(siberia);
+			map.setCenter(saopaulo);
 		}
     }
 	
