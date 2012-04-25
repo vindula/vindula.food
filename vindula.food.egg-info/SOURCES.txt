@@ -12,4 +12,6 @@ vindula.food.egg-info/paster_plugins.txt
 vindula.food.egg-info/requires.txt
 vindula.food.egg-info/top_level.txt
 vindula/food/__init__.py
+vindula/food/content.py
+vindula/food/models.py
 vindula/food/restaurant.py
