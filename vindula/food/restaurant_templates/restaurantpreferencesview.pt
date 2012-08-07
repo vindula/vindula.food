@@ -9,14 +9,7 @@
 	  	
 	<head>
 		<metal:js fill-slot="javascript_head_slot">
-			<script type="text/javascript">
-				$j = jQuery.noConflict();
-				$j(document).ready(function(){
-					/* Aba de edição do conteudo*/
-					$j('#contentview-restaurant').addClass('selected');
-					$j('#contentview-view').removeClass('selected');
-				});
-			</script>
+		<script type="text/javascript" tal:attributes="src string:${view/static}/mascaras.js" src=""></script>
 		</metal:js>
 	</head>
     <body>
@@ -75,7 +68,7 @@
 		                    <div class="formHelp">Insira o número do telefone do restaurante.</div>
 		                    <div tal:content="errors/phone_number|nothing"></div> 
 		                    <input id="phone_number" type="text" value="" 
-		                    name="phone_number" size="25" tal:attributes="value request/phone_number | form_values/phone_number | nothing">
+		                    name="phone_number" size="25" maxlength="13" onKeyPress="Mascara(this)" tal:attributes="value request/phone_number | form_values/phone_number | nothing">
 		                </div>
 						
 						<div class="field" tal:attributes="class python: view.field_class(errors, 'delivery')">
@@ -92,7 +85,7 @@
 		                    <div class="formHelp">Insira o horário de funcionamento do restaurante.</div>
 		                    <div tal:content="errors/opening_hours|nothing"></div> 
 		                    <input id="opening_hours" type="text" value="" 
-		                    name="opening_hours" size="25" tal:attributes="value request/opening_hours | form_values/opening_hours | nothing">
+		                    name="opening_hours" size="25" onfocus="mascara('##:## - ##:##',this)" maxlength="13" tal:attributes="value request/opening_hours | form_values/opening_hours | nothing">
 		                </div>
 						
 						<div class="field" tal:attributes="class python: view.field_class(errors, 'has_agreement')">
