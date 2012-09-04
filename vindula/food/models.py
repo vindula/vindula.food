@@ -6,11 +6,11 @@ from Products.statusmessages.interfaces import IStatusMessage
 from vindula.myvindula.validation import valida_form
 from vindula.myvindula.validation import to_utf8
 
-from vindula.myvindula.user import BaseFunc
+from vindula.myvindula.models.base import BaseStore
 
 
 
-class ModelsRestaurantPreferences(Storm, BaseFunc):
+class ModelsRestaurantPreferences(Storm, BaseStore):
     __storm_table__ = 'vin_food_restaurant'
     _name_class = 'ModelsRestaurantPreferences'
     
@@ -142,7 +142,7 @@ class ModelsRestaurantPreferences(Storm, BaseFunc):
         else:
             return form_data
         
-class ModelsSpecialty(Storm, BaseFunc):
+class ModelsSpecialty(Storm, BaseStore):
     __storm_table__ = 'vin_food_specialty'
     _name_class = 'ModelsSpecialty'
     

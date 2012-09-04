@@ -72,6 +72,11 @@ $j(document).ready(function(){
 	                });
 	                
 	                $j('.tracaRota'+number).click(function(){
+	                    var position = $j('#map_canvas').offset();
+	                    var top = position.top - 50;
+	                    var left = position.left;
+	                    window.scrollTo(left,top);
+	                    
 	                    tracaRota(minha_pos, dest_pos[contador]);
 	                });
                 }
