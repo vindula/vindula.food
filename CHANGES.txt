@@ -16,3 +16,4 @@ Changelog
 ----------------------
 - Correção Ticket #209
 - Correção Ticket #205 - Excluir restaurantes
+- Correção Ticket #208 - Excluir especialidade

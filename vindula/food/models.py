@@ -232,7 +232,7 @@ class ModelsSpecialty(Storm, BaseStore):
                     
                     ctx.request.response.redirect(success_url)
                 else:
-                    ctx.request.response.redirect(ctx.context.absolute_url() + '/manage-specialty"?error=true&id=' + form.get('id'))
+                    ctx.request.response.redirect(ctx.context.absolute_url() + '/manage-specialty?error=true&id=' + form.get('id'))
 
         # se for um formulario de edicao 
         elif 'id' in form_keys:
