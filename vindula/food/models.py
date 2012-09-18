@@ -6,6 +6,8 @@ from Products.statusmessages.interfaces import IStatusMessage
 from vindula.myvindula.validation import valida_form
 from vindula.myvindula.validation import to_utf8
 
+from Products.CMFCore.utils import getToolByName
+
 from vindula.myvindula.models.base import BaseStore
 
 
