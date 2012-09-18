@@ -68,7 +68,8 @@
 		                    <div class="formHelp">Insira o número do telefone do restaurante.</div>
 		                    <div tal:content="errors/phone_number|nothing"></div> 
 		                    <input id="phone_number" type="text" value="" 
-		                    name="phone_number" size="25" maxlength="13" onKeyPress="Mascara(this)" tal:attributes="value request/phone_number | form_values/phone_number | nothing">
+		                    name="phone_number" size="25" maxlength="13" onKeyDown="Mascara(this,Telefone);" onKeyPress="Mascara(this,Telefone);" onKeyUp="Mascara(this,Telefone);"
+		                    tal:attributes="value request/phone_number | form_values/phone_number | nothing">
 		                </div>
 						
 						<div class="field" tal:attributes="class python: view.field_class(errors, 'delivery')">
@@ -85,7 +86,8 @@
 		                    <div class="formHelp">Insira o horário de funcionamento do restaurante.</div>
 		                    <div tal:content="errors/opening_hours|nothing"></div> 
 		                    <input id="opening_hours" type="text" value="" 
-		                    name="opening_hours" size="25" onfocus="mascara('##:## - ##:##',this)" maxlength="13" tal:attributes="value request/opening_hours | form_values/opening_hours | nothing">
+		                    name="opening_hours" size="25" onfocus="mascara('##:## - ##:##',this)" 
+		                    maxlength="13" tal:attributes="value request/opening_hours | form_values/opening_hours | nothing">
 		                </div>
 						
 						<div class="field" tal:attributes="class python: view.field_class(errors, 'has_agreement')">

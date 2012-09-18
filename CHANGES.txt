@@ -12,3 +12,6 @@ Changelog
 ---------------------
 - Ajuste no metodo de gerar a rota do restaurante, e posicionar o mapa no centro da tela 
 
+1.1.3 - 2012-09-18
+----------------------
+- Correção Ticket #209
