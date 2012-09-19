@@ -68,7 +68,7 @@
 		                    <div class="formHelp">Insira o número do telefone do restaurante.</div>
 		                    <div tal:content="errors/phone_number|nothing"></div> 
 		                    <input id="phone_number" type="text" value="" 
-		                    name="phone_number" size="25" maxlength="13" onKeyDown="Mascara(this,Telefone);" onKeyPress="Mascara(this,Telefone);" onKeyUp="Mascara(this,Telefone);"
+		                    name="phone_number" size="25" maxlength="14" onKeyDown="Mascara(this,Telefone);" onKeyPress="Mascara(this,Telefone);" onKeyUp="Mascara(this,Telefone);"
 		                    tal:attributes="value request/phone_number | form_values/phone_number | nothing">
 		                </div>
 						
