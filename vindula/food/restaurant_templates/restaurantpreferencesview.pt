@@ -92,7 +92,7 @@
 						
 						<div class="field" tal:attributes="class python: view.field_class(errors, 'has_agreement')">
 		                    <label for="has_agreement">Conv&ecirc;nio</label>
-		                    <div class="formHelp">Marque esta opção se o restaurante tiver conv&ecirc;nio com a empresa.</div>
+		                    <div class="formHelp">Marque esta opção caso o restaurante possua conv&ecirc;nio com a empresa.</div>
 		                    <div tal:content="errors/has_agreement|nothing"></div> 
 		                    <input id="has_agreement" type="checkbox" value="" checked="" name="has_agreement" 
 							       tal:attributes="value request/has_agreement | form_values/has_agreement | nothing;
