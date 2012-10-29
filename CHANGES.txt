@@ -18,7 +18,11 @@ Changelog
 - Correção Ticket #205 - Excluir restaurantes
 - Correção Ticket #208 - Excluir especialidade
 
-1.1.4	-	2012-10-08
+1.1.4 - 2012-10-08
 ----------------------
-
 - Correção do texto "Marque esta opção caso o restaurante possua convênio com a empresa." Ticket 272
+
+
+1.1.5 - 2012-10-29
+-----------------------
+- Correção do cadastro de restaurante sem especialidade

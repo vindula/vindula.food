@@ -45,7 +45,7 @@
 							</div>
 		                    <div tal:content="errors/specialty|nothing"></div> 
 		                    <select name="vin_food_specialty_id" tal:define="id_request request/vin_food_specialty_id | form_values/vin_food_specialty_id | python:''">
-		                        <option value="--NOVALUE--">-- Selecione --</option>
+		                        <option value="">-- Selecione --</option>
 		                        <tal:repeat repeat="specialty specialties">
 		                            <option value=""
 		                                    tal:content="specialty/name" 

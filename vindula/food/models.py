@@ -88,8 +88,8 @@ class ModelsRestaurantPreferences(Storm, BaseStore):
         elif 'form.submited' in form_keys:
             # Inicia o processamento do formulario
             # chama a funcao que valida os dados extraidos do formulario (valida_form) 
+            
             errors, data = valida_form(campos, form)  
-
             if not errors:
                 
                 if 'id' in form_keys:
