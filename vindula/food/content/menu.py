@@ -38,7 +38,7 @@ Menu_schema['activ_share_footer'].widget.visible = invisivel
 
 schemata.finalizeATCTSchema(Menu_schema, folderish=False)
 
-class Menu(base.ATCTContent):
+class Menu(VindulaNews):
     """ Reserve Content for Menu """
     security = ClassSecurityInfo()
 
@@ -50,8 +50,8 @@ class Menu(base.ATCTContent):
     def voc_dias(self):
         dias = ('Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado', 'Domingo')
         retorno = []
-        for dia in dias:
-            retorno.append((dia, dia))
+        for cont, dia in enumerate(dias, start=0):
+            retorno.append((str(cont), dia))
 
         return DisplayList(tuple(retorno))
 
