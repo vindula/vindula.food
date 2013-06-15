@@ -16,26 +16,27 @@
 		description="Installs the vindula.food package"
 		provides="Products.GenericSetup.interfaces.EXTENSION"
 		/>
-	  
+
 	<!-- -*- extra stuff goes here -*- -->
-	
-	
+
+	<five:registerPackage package="." initialize=".initialize" />
+
 	<!-- Include configuration for dependencies listed in setup.py -->
 	<includeDependencies package="." />
-	
-	
+
+
 	<plone:static directory="static" type="theme" />
-	
-	
+
+
 	<!-- Grok the package to initialise schema interfaces and content classes -->
 	<grok:grok package="." />
-	
-	
+
+
 	<!-- Storm Configuration  -->
 	<store
 		name="food"
-		uri="mysql://root:root@localhost/myvindulaDB" />  
-		
+		uri="mysql://root:root@localhost/myvindulaDB" />
+
 		<!--mysql://usuario:senha@servidor/base_de_dados -->
-	  
+
 </configure>
