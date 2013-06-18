@@ -6,7 +6,7 @@
     <!-- Basic metadata -->
     <property name="title" i18n:translate="">Restaurantes</property>
     <property name="description" i18n:translate="">Restaurantes</property>
-    <property name="content_icon">++resource++vindula.food.images/restaurantes.png</property>
+    <property name="content_icon">++resource++vindula.food/images/restaurant.png</property>
     <property name="content_meta_type">Restaurants</property>
     <property name="product">vindula.food</property>
     <property name="factory">addRestaurants</property>

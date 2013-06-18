@@ -6,7 +6,7 @@
     <!-- Basic metadata -->
     <property name="title" i18n:translate="">Menu</property>
     <property name="description" i18n:translate="">Cardapio</property>
-    <property name="content_icon">++resource++vindula.food.images/menu.png</property>
+    <property name="content_icon">++resource++vindula.food/images/restaurant.png</property>
     <property name="content_meta_type">Menu</property>
     <property name="product">vindula.food</property>
     <property name="factory">addMenu</property>
