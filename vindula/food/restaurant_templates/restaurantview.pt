@@ -25,8 +25,8 @@
         <metal:main fill-slot="main" tal:define="restaurant view/get_restaurant | python:{}">
 				              
 			<tal:condition condition="restaurant">
-                <h1 tal:content="string: Restaurante ${restaurant/name|nothing}"></h1>
-                <span tal:content="string: Especialidade: ${restaurant/specialty/name|nothing}"></span><br />
+                <h1 tal:content="string: Parceiro ${restaurant/name|nothing}"></h1>
+                <span tal:content="string: Setor: ${restaurant/specialty/name|nothing}"></span><br />
                 <span tal:content="string: Endere&ccedil;o: ${restaurant/address|nothing}"></span><br />
                 <span tal:content="string: Telefone: ${restaurant/phone_number|nothing}"></span><br />
                 <tal:cond condition="python: restaurant.delivery == True">
