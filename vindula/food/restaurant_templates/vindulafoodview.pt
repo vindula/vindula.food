@@ -18,11 +18,11 @@
 					<h2>Configura&ccedil;&otilde;es do Vindula Food</h2>
 				</div><br />
 				
-				<h4>Cadastro de Restaurantes e Especialidades</h4>
+				<h4>Cadastro de Parceiros e Setores</h4>
 				
 				<div id="links">
-					<a tal:attributes="href string:${context/absolute_url}/restaurantpreferences" target="_blank" alt="Cadastrar Restaurante">Cadastrar Restaurante</a>
-					<a tal:attributes="href string:${context/absolute_url}/specialty" target="_blank" alt="Cadastrar Especialidade">Cadastrar Especialidade</a>
+					<a tal:attributes="href string:${context/absolute_url}/restaurantpreferences" target="_blank" alt="Cadastrar Parceiros">Cadastrar Parceiros</a>
+					<a tal:attributes="href string:${context/absolute_url}/specialty" target="_blank" alt="Cadastrar Setores">Cadastrar Setores</a>
 				</div>
 
 				<!-- Restaurants -->
@@ -34,7 +34,7 @@
 								<a tal:content="item/name" target="_blak" tal:attributes="href string:${context/absolute_url}/restaurantpreferences?id=${item/id}"></a>
 							</li>
 						</ul>	
-						<span tal:condition="not: restaurants">Nenhum restaurante cadastrado.</span>			
+						<span tal:condition="not: restaurants">Nenhum Parceiro cadastrado.</span>			
 					</div>		
 				</tal:define>
 				
@@ -48,7 +48,7 @@
 								<a tal:content="item/name" target="_blak" tal:attributes="href string:${context/absolute_url}/specialty?id=${item/id}"></a>
 							</li>
 						</ul>	
-						<span tal:condition="not: specialties">Nenhuma especialidade cadastrada.</span>			
+						<span tal:condition="not: specialties">Nenhuma setores cadastrada.</span>			
 					</div>		
 				</tal:define>
 			

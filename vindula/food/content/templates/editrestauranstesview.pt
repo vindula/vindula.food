@@ -17,7 +17,7 @@
 		<metal:main fill-slot="main">
 			<div class="food-control-panel">	
 				<div id="links">
-					<a tal:attributes="href string:${context/absolute_url}/manage-restaurant" alt="Cadastrar Restaurante">Cadastrar novo restaurante</a>
+					<a tal:attributes="href string:${context/absolute_url}/manage-restaurant" alt="Cadastrar Restaurante">Cadastrar novo parceiro</a>
 				</div>
 
 				<!-- Restaurants -->
@@ -29,7 +29,7 @@
 								<a tal:content="item/name" tal:attributes="href string:${context/absolute_url}/manage-restaurant?id=${item/id}"></a>
 							</li>
 						</ul>	
-						<span tal:condition="not: restaurants">Nenhum restaurante cadastrado.</span>			
+						<span tal:condition="not: restaurants">Nenhum parceiro cadastrado.</span>			
 					</div>		
 				</tal:define>			
 			</div>

@@ -2,7 +2,7 @@
 <object name="portal_factory" meta_type="Plone Factory Tool">
     <factorytypes>
 
-        <type portal_type="Restaurantes"/>
+        <type portal_type="Restaurants"/>
         <type portal_type="Menu"/>
 
     </factorytypes>

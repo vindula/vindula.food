@@ -27,8 +27,8 @@
 											  error python: context.REQUEST.get('error') or 'false'">
     
 			<h2 tal:condition="request/id|nothing"  
-				tal:content="string:Editação da especialidade '${form_values/name|nothing}'"> </h2>
-			<h2 tal:condition="not: request/id|nothing">Cadastro de Especialidade</h2>    
+				tal:content="string:Editação do setor '${form_values/name|nothing}'"> </h2>
+			<h2 tal:condition="not: request/id|nothing">Cadastro de Setor</h2>    
 	
 	        <form method="post" id="manage-specialty" class="enableAutoFocus" tal:attributes="action string:${context/absolute_url|nothing}/manage-specialty" enctype="multipart/form-data">
 	        	
@@ -38,7 +38,7 @@
 				<div class="field">
 	                <label for="name">Nome</label>
 	                <span class="fieldRequired" title="Obrigatório">(Obrigatório)</span>
-	                <div class="formHelp">Insira o nome da especialidade/tipo.</div>
+	                <div class="formHelp">Insira o nome da setor/tipo.</div>
 	                <div tal:content="errors/name|nothing"></div> 
 	                <input id="name" type="text" value="" name="name" size="25" tal:attributes="value request/name | form_values/name | nothing">
 	            </div>

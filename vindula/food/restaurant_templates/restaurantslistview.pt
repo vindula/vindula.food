@@ -27,7 +27,7 @@
 					<span>Ordenação: &nbsp; </span>
 					<select id="order">
 						<option tal:attributes="value string:?order=id&size=${size}; selected python: str(order) == 'id'" value="">Novidades</option>
-						<option tal:attributes="value string:?order=name&size=${size}; selected python: str(order) == 'name'" value="">Nome do restaurante(A - Z)</option>
+						<option tal:attributes="value string:?order=name&size=${size}; selected python: str(order) == 'name'" value="">Nome do parceiro(A - Z)</option>
 					</select>
 					
 					<span>&nbsp;  Itens por página: </span>
@@ -68,17 +68,17 @@
 						</tal:condition>
 						
 						<tal:condition condition="not: restaurants">
-							<span><b>N&atilde;o h&aacute; restaurantes cadastrados.</b></span>
+							<span><b>N&atilde;o h&aacute; parceiro cadastrados.</b></span>
 						</tal:condition>
 			
 					</div>
 					
 					<!-- Map -->
-					<h4>Restaurantes pr&oacute;ximos de voc&ecirc;</h4>
+					<h4>Parceiros pr&oacute;ximos de voc&ecirc;</h4>
 					<div class="food-map">
 						<span>Clique no mapa e arraste com o mouse para visualizar outras &aacute;reas. O &iacute;cone</span>
-						<img src="http://www.google.com/intl/en_us/mapfiles/ms/micons/restaurant.png">
-						<span>representa os locais dos restaurantes cadastrados.</span>
+						<img src="http://www.google.com/mapfiles/dd-end.png">
+						<span>representa os locais dos parceiros cadastrados.</span>
 					</div>
 					<div id="map_canvas"></div>
 					

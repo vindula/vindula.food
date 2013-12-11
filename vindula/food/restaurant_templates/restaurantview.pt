@@ -50,18 +50,18 @@
 				<h4>Localiza&ccedil;&atilde;o</h4>
 				<div class="food-map">
 					<span>Clique no mapa e arraste com o mouse para visualizar outras &aacute;reas. O &iacute;cone</span>
-					<img src="http://maps.google.com/mapfiles/markerff.gif">
-					<span> representa o local do restaurante.</span>
+					<img src="http://www.google.com/mapfiles/dd-end.png">
+					<span> representa o local do parceiro.</span>
 				</div>
 				<div id="map_canvas"></div>
 			</tal:condition>
 			
 			<tal:condition condition="not: restaurant">
-				<h1>Restaurante n&atilde;o encontrado.</h1>
+				<h1>Parceiro n&atilde;o encontrado.</h1>
 			</tal:condition>
 			
 			<br />
-			<a tal:attributes="href string:${context/absolute_url}" alt="Ver todos">Ver todos os restaurantes</a>
+			<a tal:attributes="href string:${context/absolute_url}" alt="Ver todos">Ver todos os Parceiros</a>
 
         </metal:main>
     </body>

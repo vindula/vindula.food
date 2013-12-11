@@ -5,8 +5,8 @@
 		xmlns:i18n="http://xml.zope.org/namespaces/i18n">
  
  <!-- Basic metadata -->
- <property name="title" i18n:translate="">Vindula Lista de Restaurantes</property>
- <property name="description" i18n:translate="">Cria um conteúdo para administração e gerência dos restaurantes do portal.</property>
+ <property name="title" i18n:translate="">Vindula Lista de Parceiros</property>
+ <property name="description" i18n:translate="">Cria um conteúdo para administração e gerência dos Parceiros do portal.</property>
  <property name="content_icon">++resource++vindula.food/images/restaurant.png</property>
  <property name="allow_discussion">True</property>
  <property name="global_allow">True</property>
@@ -57,12 +57,12 @@
   <permission value="Modify portal content"/>
  </action>
  
- <action title="Editar especialidade" action_id="specialty" category="object" condition_expr=""
+ <action title="Editar setores" action_id="specialty" category="object" condition_expr=""
     url_expr="string:${object_url}/edit-specialty" visible="True">
   <permission value="Modify portal content"/>
  </action>
 
- <action title="Editar restaurantes" action_id="restaurant" category="object" condition_expr=""
+ <action title="Editar parceiros" action_id="restaurant" category="object" condition_expr=""
     url_expr="string:${object_url}/edit-restaurant" visible="True">
   <permission value="Modify portal content"/>
  </action>

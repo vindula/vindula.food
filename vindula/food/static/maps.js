@@ -33,7 +33,7 @@ $j(document).ready(function(){
             var name = document.getElementById("name"+number).value;
 			var id = document.getElementById("id"+number).value;
             var url = './restaurant';
-            var image = 'http://www.google.com/intl/en_us/mapfiles/ms/micons/restaurant.png';
+            var image = 'http://www.google.com/mapfiles/dd-end.png';
 			var contador = number-1;
 
             geocoder.geocode( {'address': address}, function(results, status) {

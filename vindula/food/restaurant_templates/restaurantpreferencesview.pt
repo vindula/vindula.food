@@ -20,8 +20,8 @@
                                               form_values form_data/data | python:{};">
                                               	
 					<h2 tal:condition="request/id|nothing"  
-						tal:content="string:Editação do restaurante '${form_values/name|nothing}'"> </h2>
-					<h2 tal:condition="not: request/id|nothing">Cadastro de Restaurante</h2>                                              		
+						tal:content="string:Editação do parceiro '${form_values/name|nothing}'"> </h2>
+					<h2 tal:condition="not: request/id|nothing">Cadastro de parceiro</h2>                                              		
                     					
 					<form method="post" tal:attributes="action string:${context/absolute_url|nothing}/manage-restaurant">
 						
@@ -30,18 +30,18 @@
 						<div class="field" tal:attributes="class python: view.field_class(errors, 'name')">
 		                    <label for="name">Nome</label>
 		                    <span class="fieldRequired" title="Obrigatório">(Obrigatório)</span>
-		                    <div class="formHelp">Insira o nome do restaurante.</div>
+		                    <div class="formHelp">Insira o nome do parceiro.</div>
 		                    <div tal:content="errors/name|nothing"></div> 
 		                    <input id="name" type="text" value="" 
 		                    name="name" size="25" tal:attributes="value request/name | form_values/name | nothing">
 		                </div>
 						
 						<div class="field" tal:define="specialties view/get_specialties" tal:attributes="class python: view.field_class(errors, 'vin_food_specialty_id')">
-		                    <label for="vin_food_specialty_id">Especialidade</label>
+		                    <label for="vin_food_specialty_id">Setores</label>
 		                    <span class="fieldRequired" title="Obrigatório">(Obrigatório)</span>
 		                    <div class="formHelp">
-		                    	Selecione o tipo/especialidade do restaurante. Cadastre uma 
-								<a target="_blank" tal:attributes="href string: ${here/absolute_url}/manage-specialty?rest_id=${request/id|nothing}">nova especialidade.</a>
+		                    	Selecione o tipo/setor do parceiro. Cadastre uma 
+								<a target="_blank" tal:attributes="href string: ${here/absolute_url}/manage-specialty?rest_id=${request/id|nothing}">novo setor.</a>
 							</div>
 		                    <div tal:content="errors/specialty|nothing"></div> 
 		                    <select name="vin_food_specialty_id" tal:define="id_request request/vin_food_specialty_id | form_values/vin_food_specialty_id | python:''">
@@ -57,7 +57,7 @@
 						<div class="field" tal:attributes="class python: view.field_class(errors, 'address')">
 		                    <label for="address">Endereço</label>
 		                    <span class="fieldRequired" title="Obrigatório">(Obrigatório)</span>
-		                    <div class="formHelp">Insira o endereço completo do restaurante.</div>
+		                    <div class="formHelp">Insira o endereço completo do parceiro.</div>
 		                    <div tal:content="errors/address|nothing"></div> 
 		                    <input id="address" type="text" value="" 
 		                    name="address" size="45" tal:attributes="value request/address | form_values/address | nothing">
@@ -65,7 +65,7 @@
 						
 						<div class="field" tal:attributes="class python: view.field_class(errors, 'phone_number')">
 		                    <label for="phone_number">Telefone Comercial</label>
-		                    <div class="formHelp">Insira o número do telefone do restaurante.</div>
+		                    <div class="formHelp">Insira o número do telefone do parceiro.</div>
 		                    <div tal:content="errors/phone_number|nothing"></div> 
 		                    <input id="phone_number" type="text" value="" 
 		                    name="phone_number" size="25" maxlength="14" onKeyDown="Mascara(this,Telefone);" onKeyPress="Mascara(this,Telefone);" onKeyUp="Mascara(this,Telefone);"
@@ -74,7 +74,7 @@
 						
 						<div class="field" tal:attributes="class python: view.field_class(errors, 'delivery')">
 		                    <label for="delivery">Delivery</label>
-		                    <div class="formHelp">Marque esta opção se o restaurante tiver serviço de delivery.</div>
+		                    <div class="formHelp">Marque esta opção se o parceiro tiver serviço de delivery.</div>
 		                    <div tal:content="errors/delivery|nothing"></div> 
 		                    <input id="delivery" type="checkbox" value="" checked="" name="delivery" 
 							       tal:attributes="value request/delivery | form_values/delivery | nothing;
@@ -83,7 +83,7 @@
 						
 						<div class="field" tal:attributes="class python: view.field_class(errors, 'opening_hours')">
 		                    <label for="opening_hours">Horário de funcionamento</label>
-		                    <div class="formHelp">Insira o horário de funcionamento do restaurante.</div>
+		                    <div class="formHelp">Insira o horário de funcionamento do parceiro.</div>
 		                    <div tal:content="errors/opening_hours|nothing"></div> 
 		                    <input id="opening_hours" type="text" value="" 
 		                    name="opening_hours" size="25" onfocus="mascara('##:## - ##:##',this)" 
@@ -92,7 +92,7 @@
 						
 						<div class="field" tal:attributes="class python: view.field_class(errors, 'has_agreement')">
 		                    <label for="has_agreement">Conv&ecirc;nio</label>
-		                    <div class="formHelp">Marque esta opção caso o restaurante possua conv&ecirc;nio com a empresa.</div>
+		                    <div class="formHelp">Marque esta opção caso o parceiro possua conv&ecirc;nio com a empresa.</div>
 		                    <div tal:content="errors/has_agreement|nothing"></div> 
 		                    <input id="has_agreement" type="checkbox" value="" checked="" name="has_agreement" 
 							       tal:attributes="value request/has_agreement | form_values/has_agreement | nothing;
