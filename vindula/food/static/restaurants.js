@@ -20,7 +20,7 @@ $j(document).ready(function(){
 	
 	if ($j('input#error-specialty').val() == 'true')
 	{
-		alert('Essa especialidade não pode ser excluida pois está vinculada a um restaurante.')
+		alert('Esse setor não pode ser excluida pois está vinculada a um parceiro.')
 	}
 	
 });
